@@ -10,30 +10,32 @@
 package openapi
 
 import (
-	"errors"
+	guuid "github.com/google/uuid"
 )
 
 // VideogameApiService is a service that implents the logic for the VideogameApiServicer
-// This service should implement the business logic for every endpoint for the VideogameApi API. 
+// This service should implement the business logic for every endpoint for the VideogameApi API.
 // Include any external packages or services that will be required by this service.
 type VideogameApiService struct {
+	ElasticClient *ElasticClient
 }
 
 // NewVideogameApiService creates a default api service
 func NewVideogameApiService() VideogameApiServicer {
-	return &VideogameApiService{}
+	return &VideogameApiService{ElasticClient: NewElasticClient()}
 }
 
 // CreateVideogame - Create a Videogame
 func (s *VideogameApiService) CreateVideogame(videogame Videogame) (interface{}, error) {
 	// TODO - update CreateVideogame with the required logic for this service method.
 	// Add api_videogame_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
-	return nil, errors.New("service method 'CreateVideogame' not implemented")
+	videogame.Id = guuid.New().String()
+	return videogame, s.ElasticClient.CreateVideogame(videogame)
 }
 
 // SearchVideogames - Search Videogames
 func (s *VideogameApiService) SearchVideogames(searchRequest SearchRequest) (interface{}, error) {
 	// TODO - update SearchVideogames with the required logic for this service method.
 	// Add api_videogame_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
-	return nil, errors.New("service method 'SearchVideogames' not implemented")
+	return s.ElasticClient.SearchVideogames(searchRequest)
 }
