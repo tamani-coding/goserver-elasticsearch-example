@@ -13,8 +13,6 @@ import (
 	"encoding/json"
 	"net/http"
 	"strings"
-
-	"github.com/gorilla/mux"
 )
 
 // A VideogameApiController binds http requests to an api service and writes the service results to the http response
@@ -24,12 +22,12 @@ type VideogameApiController struct {
 
 // NewVideogameApiController creates a default api controller
 func NewVideogameApiController(s VideogameApiServicer) Router {
-	return &VideogameApiController{ service: s }
+	return &VideogameApiController{service: s}
 }
 
 // Routes returns all of the api route for the VideogameApiController
 func (c *VideogameApiController) Routes() Routes {
-	return Routes{ 
+	return Routes{
 		{
 			"CreateVideogame",
 			strings.ToUpper("Post"),
@@ -46,35 +44,35 @@ func (c *VideogameApiController) Routes() Routes {
 }
 
 // CreateVideogame - Create a Videogame
-func (c *VideogameApiController) CreateVideogame(w http.ResponseWriter, r *http.Request) { 
+func (c *VideogameApiController) CreateVideogame(w http.ResponseWriter, r *http.Request) {
 	videogame := &Videogame{}
 	if err := json.NewDecoder(r.Body).Decode(&videogame); err != nil {
 		w.WriteHeader(500)
 		return
 	}
-	
+
 	result, err := c.service.CreateVideogame(*videogame)
 	if err != nil {
 		w.WriteHeader(500)
 		return
 	}
-	
+
 	EncodeJSONResponse(result, nil, w)
 }
 
 // SearchVideogames - Search Videogames
-func (c *VideogameApiController) SearchVideogames(w http.ResponseWriter, r *http.Request) { 
+func (c *VideogameApiController) SearchVideogames(w http.ResponseWriter, r *http.Request) {
 	searchRequest := &SearchRequest{}
 	if err := json.NewDecoder(r.Body).Decode(&searchRequest); err != nil {
 		w.WriteHeader(500)
 		return
 	}
-	
+
 	result, err := c.service.SearchVideogames(*searchRequest)
 	if err != nil {
 		w.WriteHeader(500)
 		return
 	}
-	
+
 	EncodeJSONResponse(result, nil, w)
 }
