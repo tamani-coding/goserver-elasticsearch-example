@@ -1,0 +1,1 @@
+curl -d @properties_mapping.json -X PUT http://localhost:9200/videogame

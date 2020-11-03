@@ -1,0 +1,25 @@
+{
+  "mappings": {
+    "properties": {
+      "title": {
+        "type": "text",
+        "fields": {
+          "raw": { 
+            "type":  "keyword"
+          }
+        }
+      },
+	  "releaseDate": {
+        "type": "date"
+      },
+	  "publisher": {
+        "type": "text",
+        "fields": {
+          "raw": { 
+            "type":  "keyword"
+          }
+        }
+      }
+    }
+  }
+}
