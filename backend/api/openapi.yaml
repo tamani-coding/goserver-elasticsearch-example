@@ -1,0 +1,111 @@
+openapi: 3.0.3
+info:
+  title: Videogame API
+  version: 1.0.0
+servers:
+- url: http://localhost:8080/videogame
+paths:
+  /create:
+    post:
+      operationId: createVideogame
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Videogame'
+        description: A Videogame to create
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Videogame'
+          description: Expected response to a valid request
+      summary: Create a Videogame
+      tags:
+      - Videogame
+    summary: Create a Videogame
+  /search:
+    post:
+      operationId: searchVideogames
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+        description: Videgame search request
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+          description: Expected response to a valid request
+      summary: Search Videogames
+      tags:
+      - Videogame
+    summary: Search videogames
+components:
+  schemas:
+    Videogame:
+      example:
+        releaseDate: 2000-01-23
+        publisher: publisher
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        title: title
+      properties:
+        id:
+          format: uuid
+          type: string
+        title:
+          type: string
+        releaseDate:
+          format: date
+          type: string
+        publisher:
+          type: string
+      required:
+      - publisher
+      - releaseDate
+      - title
+    SearchRequest:
+      example:
+        offset: 0
+        releaseDateLessrOrEqual: 2000-01-23
+        limit: 6
+        publisher: publisher
+        title: title
+        releaseDateGreaterOrEqual: 2000-01-23
+      properties:
+        offset:
+          type: integer
+        limit:
+          type: integer
+        title:
+          type: string
+        releaseDateGreaterOrEqual:
+          format: date
+          type: string
+        releaseDateLessrOrEqual:
+          format: date
+          type: string
+        publisher:
+          type: string
+    SearchResponse:
+      example:
+        videogames:
+        - releaseDate: 2000-01-23
+          publisher: publisher
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          title: title
+        - releaseDate: 2000-01-23
+          publisher: publisher
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          title: title
+      properties:
+        videogames:
+          items:
+            $ref: '#/components/schemas/Videogame'
+          type: array

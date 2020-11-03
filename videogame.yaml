@@ -1,0 +1,89 @@
+openapi: '3.0.3'
+servers:
+  - url: http://localhost:8080/videogame
+info:
+  version: 1.0.0
+  title: Videogame API
+paths:
+  /create:
+    summary: Create a Videogame
+    post:
+      tags:
+        - Videogame
+      summary: Create a Videogame
+      operationId: createVideogame
+      requestBody:
+        description: A Videogame to create
+        required: true
+        content:
+          application/json:
+              schema: 
+                $ref: '#/components/schemas/Videogame'
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Videogame'
+  /search:
+    summary: Search videogames
+    post:
+      tags:
+        - Videogame
+      summary: Search Videogames
+      operationId: searchVideogames
+      requestBody:
+        description: Videgame search request
+        required: true
+        content:
+          application/json:
+              schema: 
+                $ref: '#/components/schemas/SearchRequest'
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/SearchResponse'
+components:
+  schemas:
+    Videogame:
+      required:
+        - title
+        - releaseDate
+        - publisher
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        releaseDate:
+          type: string
+          format: date
+        publisher:
+          type: string
+    SearchRequest:
+      properties:
+        offset:
+          type: integer
+        limit:
+          type: integer
+        title:
+          type: string
+        releaseDateGreaterOrEqual:
+          type: string
+          format: date
+        releaseDateLessrOrEqual:
+          type: string
+          format: date
+        publisher:
+          type: string
+    SearchResponse:
+      properties:
+        videogames:
+          type: array
+          items:
+            $ref: '#/components/schemas/Videogame'
