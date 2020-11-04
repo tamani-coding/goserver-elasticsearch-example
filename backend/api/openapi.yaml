@@ -73,9 +73,11 @@ components:
     SearchRequest:
       example:
         offset: 0
+        sortType: asc
         releaseDateLessrOrEqual: 2000-01-23
         limit: 6
         publisher: publisher
+        sortBy: title
         title: title
         releaseDateGreaterOrEqual: 2000-01-23
       properties:
@@ -84,16 +86,16 @@ components:
         limit:
           type: integer
         sortBy:
-          type: string
           enum:
-            - title
-            - releaseDate
-            - publisher
+          - title
+          - releaseDate
+          - publisher
+          type: string
         sortType:
-          type: string
           enum:
-            - asc
-            - desc
+          - asc
+          - desc
+          type: string
         title:
           type: string
         releaseDateGreaterOrEqual:

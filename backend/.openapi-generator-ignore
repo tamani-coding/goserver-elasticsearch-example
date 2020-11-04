@@ -23,5 +23,5 @@
 #!docs/README.md
 
 main.go
-go/*
-!go/model_videogame.go
+go.mod
+go/api_videogame_service.go

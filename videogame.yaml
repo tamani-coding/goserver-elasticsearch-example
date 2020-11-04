@@ -71,6 +71,17 @@ components:
           type: integer
         limit:
           type: integer
+        sortBy:
+          type: string
+          enum:
+            - title
+            - releaseDate
+            - publisher
+        sortType:
+          type: string
+          enum:
+            - asc
+            - desc
         title:
           type: string
         releaseDateGreaterOrEqual:

@@ -15,6 +15,10 @@ type SearchRequest struct {
 
 	Limit int32 `json:"limit,omitempty"`
 
+	SortBy string `json:"sortBy,omitempty"`
+
+	SortType string `json:"sortType,omitempty"`
+
 	Title string `json:"title,omitempty"`
 
 	ReleaseDateGreaterOrEqual string `json:"releaseDateGreaterOrEqual,omitempty"`
