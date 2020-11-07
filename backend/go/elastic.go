@@ -116,30 +116,14 @@ func (s *ElasticClient) SearchVideogames(searchRequest SearchRequest) (interface
 	if searchRequest.Title != "" {
 		match["title"] = searchRequest.Title
 	}
-	if searchRequest.Publisher != "" {
-		match["publisher"] = searchRequest.Publisher
-	}
-
-	//daterange
-	daterange := make(map[string]map[string]string)
-	daterange["releaseDate"] = make(map[string]string)
-	if searchRequest.ReleaseDateGreaterOrEqual != "" {
-		daterange["releaseDate"]["gte"] = searchRequest.ReleaseDateGreaterOrEqual
-	}
-	if searchRequest.ReleaseDateLessrOrEqual != "" {
-		daterange["releaseDate"]["lte"] = searchRequest.ReleaseDateLessrOrEqual
-	}
 
 	// query
 	query.Query = map[string]interface{}{}
-	if len(match) == 0 && len(daterange["releaseDate"]) == 0 {
+	if len(match) == 0 {
 		query.Query["match_all"] = make(map[string]interface{})
 	} else {
 		if len(match) > 0 {
 			query.Query["match"] = match
-		}
-		if len(daterange["releaseDate"]) > 0 {
-			query.Query["range"] = daterange
 		}
 	}
 

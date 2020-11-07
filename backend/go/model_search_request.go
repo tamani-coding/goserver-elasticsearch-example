@@ -20,10 +20,4 @@ type SearchRequest struct {
 	SortType string `json:"sortType,omitempty"`
 
 	Title string `json:"title,omitempty"`
-
-	ReleaseDateGreaterOrEqual string `json:"releaseDateGreaterOrEqual,omitempty"`
-
-	ReleaseDateLessrOrEqual string `json:"releaseDateLessrOrEqual,omitempty"`
-
-	Publisher string `json:"publisher,omitempty"`
 }

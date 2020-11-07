@@ -98,14 +98,6 @@ components:
           type: string
         title:
           type: string
-        releaseDateGreaterOrEqual:
-          format: date
-          type: string
-        releaseDateLessrOrEqual:
-          format: date
-          type: string
-        publisher:
-          type: string
     SearchResponse:
       example:
         videogames:

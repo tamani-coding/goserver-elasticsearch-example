@@ -1,100 +1,116 @@
-openapi: '3.0.3'
-servers:
-  - url: http://localhost:8080/videogame
+openapi: 3.0.3
 info:
-  version: 1.0.0
   title: Videogame API
+  version: 1.0.0
+servers:
+- url: http://localhost:8080/videogame
 paths:
   /create:
-    summary: Create a Videogame
     post:
-      tags:
-        - Videogame
-      summary: Create a Videogame
       operationId: createVideogame
       requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Videogame'
         description: A Videogame to create
         required: true
-        content:
-          application/json:
-              schema: 
-                $ref: '#/components/schemas/Videogame'
       responses:
-        '200':
-          description: Expected response to a valid request
+        "200":
           content:
             application/json:
-              schema: 
+              schema:
                 $ref: '#/components/schemas/Videogame'
-  /search:
-    summary: Search videogames
-    post:
+          description: Expected response to a valid request
+      summary: Create a Videogame
       tags:
-        - Videogame
-      summary: Search Videogames
+      - Videogame
+    summary: Create a Videogame
+  /search:
+    post:
       operationId: searchVideogames
       requestBody:
-        description: Videgame search request
-        required: true
         content:
           application/json:
-              schema: 
-                $ref: '#/components/schemas/SearchRequest'
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+        description: Videgame search request
+        required: true
       responses:
-        '200':
-          description: Expected response to a valid request
+        "200":
           content:
             application/json:
-              schema: 
+              schema:
                 $ref: '#/components/schemas/SearchResponse'
+          description: Expected response to a valid request
+      summary: Search Videogames
+      tags:
+      - Videogame
+    summary: Search videogames
 components:
   schemas:
     Videogame:
-      required:
-        - title
-        - releaseDate
-        - publisher
+      example:
+        releaseDate: 2000-01-23
+        publisher: publisher
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        title: title
       properties:
         id:
-          type: string
           format: uuid
+          type: string
         title:
           type: string
         releaseDate:
-          type: string
           format: date
+          type: string
         publisher:
           type: string
+      required:
+      - publisher
+      - releaseDate
+      - title
     SearchRequest:
+      example:
+        offset: 0
+        sortType: asc
+        releaseDateLessrOrEqual: 2000-01-23
+        limit: 6
+        publisher: publisher
+        sortBy: title
+        title: title
+        releaseDateGreaterOrEqual: 2000-01-23
       properties:
         offset:
           type: integer
         limit:
           type: integer
         sortBy:
-          type: string
           enum:
-            - title
-            - releaseDate
-            - publisher
+          - title
+          - releaseDate
+          - publisher
+          type: string
         sortType:
-          type: string
           enum:
-            - asc
-            - desc
+          - asc
+          - desc
+          type: string
         title:
           type: string
-        releaseDateGreaterOrEqual:
-          type: string
-          format: date
-        releaseDateLessrOrEqual:
-          type: string
-          format: date
-        publisher:
-          type: string
     SearchResponse:
+      example:
+        videogames:
+        - releaseDate: 2000-01-23
+          publisher: publisher
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          title: title
+        - releaseDate: 2000-01-23
+          publisher: publisher
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          title: title
       properties:
         videogames:
-          type: array
           items:
             $ref: '#/components/schemas/Videogame'
+          type: array
