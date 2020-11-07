@@ -1,2 +1,3 @@
 openapitools.json
 docker-compose/node*/*
+!docker-compose/node*/dummy
